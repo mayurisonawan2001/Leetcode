@@ -1,0 +1,44 @@
+// PS -> You are given two strings s1 and s2 of equal length. 
+// A string swap is an operation where you choose two indices in a string (not necessarily different) and swap the characters at these indices.
+// Return true if it is possible to make both strings equal by performing at most one string swap on exactly one of the strings. Otherwise, return false.
+// Ex. 1 : 
+// Input: s1 = "bank", s2 = "kanb"
+// Output: true
+// Explanation: For example, swap the first character with the last character of s2 to make "bank".
+
+// Ex. 2: 
+// Input: s1 = "attack", s2 = "defend"
+// Output: false
+// Explanation: It is impossible to make them equal with one string swap.
+
+// Ex. 3:
+//Input: s1 = "kelb", s2 = "kelb"
+//Output: true
+//Explanation: The two strings are already equal, so no string swap operation is required.
+
+// SIMPLE BAAT, NO BAKWAS : check if size is same, if not count at what indices they are are not same, store those indices, 
+// if those indices are more than 2, means not possible in single swap, so return false
+// if these will be only 2 indices then, check if after swapping are these 2 strings becoming equal or not....
+
+bool areAlmostEqual(string s1, string s2) {
+
+        if(s1.size() != s2.size()) return false;  // if of diff size then no use, KHATAM
+        if(s1 == s2) return true; // straight forward check if both strings are equal, if yes, then return true 
+        vector<int> diffIndices;  
+        for (int i = 0; i < s1.length(); ++i) {
+           if (s1[i] != s2[i]) {
+            diffIndices.push_back(i);  // store index values at which s1 != s2
+           }
+        }
+
+        if (diffIndices.size() != 2) {
+            return false; // if more than 2 indices values are unequal, then not possible in single swap, return false
+        }
+
+        int i = diffIndices[0]; 
+        int j = diffIndices[1];
+
+    
+        return s1[i] == s2[j] && s1[j] == s2[i];  // check if these diff values are same for other string and vica versa.
+    }
+};
